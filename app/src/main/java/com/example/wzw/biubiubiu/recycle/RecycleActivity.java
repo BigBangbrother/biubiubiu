@@ -15,5 +15,11 @@ public class RecycleActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycle_activity);
+        requestJson();
+    }
+
+    private void requestJson() {
+        String url = "http://gank.io/api/data/Android/10/1";
+
     }
 }
