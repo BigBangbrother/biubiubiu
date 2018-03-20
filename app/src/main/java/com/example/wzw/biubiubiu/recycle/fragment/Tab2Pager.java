@@ -15,7 +15,7 @@ import com.example.wzw.biubiubiu.R;
 
 public class Tab2Pager
         extends Fragment {
-
+    public static final String BASE_URL = "https://api.douban.com/v2/movie/";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -23,6 +23,14 @@ public class Tab2Pager
                              @Nullable Bundle savedInstanceState)
     {
         View layout = inflater.inflate(R.layout.tab2,null);
+        init();
         return layout;
     }
+
+    private void init( ) {
+
+    }
+
+
+
 }
