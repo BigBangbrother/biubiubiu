@@ -11,8 +11,8 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.example.wzw.biubiubiu.AppConstant;
+import com.example.wzw.biubiubiu.MainActivity;
 import com.example.wzw.biubiubiu.R;
-import com.example.wzw.biubiubiu.recycle.RecycleActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -63,7 +63,7 @@ public class SplashActivity
         set.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                startActivity(new Intent(SplashActivity.this, RecycleActivity.class));
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 SplashActivity.this.finish();
                 //作用是实现两个 Activity 切换时的动画
 
