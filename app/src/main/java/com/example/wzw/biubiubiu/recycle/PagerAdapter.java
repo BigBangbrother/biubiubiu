@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 /**
- * Created by wzw on 2018/3/20.
+ * ViewPager是底部导航栏切换
  */
 
 public class PagerAdapter extends FragmentPagerAdapter {
