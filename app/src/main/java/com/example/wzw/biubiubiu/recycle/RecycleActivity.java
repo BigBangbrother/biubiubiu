@@ -27,7 +27,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by wzw on 2018/3/19.
+ * 基本操作的界面
  */
 
 public class RecycleActivity
