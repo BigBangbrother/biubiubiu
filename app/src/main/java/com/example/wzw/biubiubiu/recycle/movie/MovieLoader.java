@@ -1,7 +1,7 @@
 package com.example.wzw.biubiubiu.recycle.movie;
 
-import com.example.wzw.biubiubiu.HttpUtil.ObjectLoader;
-import com.example.wzw.biubiubiu.HttpUtil.RetrofitServiceManager;
+import com.example.wzw.biubiubiu.httpUtil.ObjectLoader;
+import com.example.wzw.biubiubiu.httpUtil.RetrofitServiceManager;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ public class MovieLoader extends ObjectLoader {
         }
 
 
-    public Observable<List<Movie.ResultsBean>> getGirl(String type, int numb, int page){
-        return observe(mMovieService.getGirl(type,numb,page))
+    public Observable<List<Movie.ResultsBean>> getNew(String type, int numb, int page){
+        return observe(mMovieService.getNew(type,numb,page))
                 .map(new Func1<Movie, List<Movie.ResultsBean>>() {
                     @Override
                     public List<Movie.ResultsBean> call(Movie movie) {
@@ -32,13 +32,29 @@ public class MovieLoader extends ObjectLoader {
                     }
                 });
     }
+    public Observable<List<Girl.ResultsBean>> getGirl(String type, int numb, int page){
+        return observe(mMovieService.getGirl(type,numb,page))
+                .map(new Func1<Girl, List<Girl.ResultsBean>>() {
+                    @Override
+                    public List<Girl.ResultsBean> call(Girl movie) {
+
+                        return movie.getResults();
+                    }
+                });
+    }
+
 
 
     public interface MovieService{
         @GET("data/{category}/{pagecount}/{page}")
-        Observable<Movie> getGirl( @Path("category") String category,
+        Observable<Movie> getNew( @Path("category") String category,
                                           @Path("pagecount") int countPerPage,
                                           @Path("page") int page);
+
+        @GET("data/{category}/{pagecount}/{page}")
+        Observable<Girl> getGirl( @Path("category") String category,
+                                   @Path("pagecount") int countPerPage,
+                                   @Path("page") int page);
 
     }
 }

@@ -1,4 +1,4 @@
-package com.example.wzw.biubiubiu.recycle;
+package com.example.wzw.biubiubiu.httpUtil;
 
 /**
  * Created by zhouwei on 16/11/9.

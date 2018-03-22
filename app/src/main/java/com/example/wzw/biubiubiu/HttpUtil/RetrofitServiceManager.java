@@ -1,6 +1,4 @@
-package com.example.wzw.biubiubiu.HttpUtil;
-
-import com.example.wzw.biubiubiu.recycle.ApiConfig;
+package com.example.wzw.biubiubiu.httpUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,29 +8,33 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by wzw on 2018/3/21.
+ * @项目名称 :biubiubiu
+ * @类描述 :
+ * @创建人 : wzw
+ * @创建时间 : 2018/3/20 21:36
+ * @修改人：wzw
+ * @修改时间：2018/3/20 21:36
+ * @修改备注：
  */
 
 public class RetrofitServiceManager {
-
     private static final int DEFAULT_TIME_OUT = 5;//超时时间 5s
     private static final int DEFAULT_READ_TIME_OUT = 10;
     private Retrofit mRetrofit;
-
-    public RetrofitServiceManager() {
+    private RetrofitServiceManager(){
+        // 创建 OKHttpClient
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS);;//连接超时时间
-        builder.writeTimeout(DEFAULT_READ_TIME_OUT,TimeUnit.SECONDS);//写操作 超时时间
+        builder.connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS);//连接超时时间
+        // builder.writeTimeout(DEFAULT_READ_TIME_OUT,TimeUnit.SECONDS);//写操作 超时时间
         builder.readTimeout(DEFAULT_READ_TIME_OUT,TimeUnit.SECONDS);//读操作超时时间
-
-        //添加公共参数拦截
-        HttpCommonInterceptor commonInterceptor = new HttpCommonInterceptor.Builder()
+        // 添加公共参数拦截器
+        com.example.wzw.biubiubiu.httpUtil.HttpCommonInterceptor commonInterceptor = new com.example.wzw.biubiubiu.httpUtil.HttpCommonInterceptor.Builder()
                 .addHeaderParams("paltform","android")
                 .addHeaderParams("userToken","1234343434dfdfd3434")
                 .addHeaderParams("userId","123445")
                 .build();
         builder.addInterceptor(commonInterceptor);
-        //创建Retrofit
+        // 创建Retrofit
         mRetrofit = new Retrofit.Builder()
                 .client(builder.build())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -40,11 +42,9 @@ public class RetrofitServiceManager {
                 .baseUrl(ApiConfig.BASE_URL2)
                 .build();
     }
-
     private static class SingletonHolder{
         private static final RetrofitServiceManager INSTANCE = new RetrofitServiceManager();
     }
-
     /**
      * 获取RetrofitServiceManager
      * @return
@@ -52,7 +52,6 @@ public class RetrofitServiceManager {
     public static RetrofitServiceManager getInstance(){
         return SingletonHolder.INSTANCE;
     }
-
     /**
      * 获取对应的Service
      * @param service Service 的 class
@@ -63,3 +62,4 @@ public class RetrofitServiceManager {
         return mRetrofit.create(service);
     }
 }
+

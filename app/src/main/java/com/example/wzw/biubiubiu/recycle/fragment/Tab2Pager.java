@@ -13,15 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.wzw.biubiubiu.HttpUtil.Fault;
 import com.example.wzw.biubiubiu.R;
-import com.example.wzw.biubiubiu.recycle.AdapterWrapper;
-import com.example.wzw.biubiubiu.recycle.SwipeToLoadHelper;
+import com.example.wzw.biubiubiu.httpUtil.Fault;
+import com.example.wzw.biubiubiu.recycletutil.AdapterWrapper;
+import com.example.wzw.biubiubiu.recycletutil.SwipeToLoadHelper;
 import com.example.wzw.biubiubiu.recycle.movie.Movie.ResultsBean;
 import com.example.wzw.biubiubiu.recycle.movie.MovieLoader;
 import com.example.wzw.biubiubiu.recycle.movie.Movieadapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -41,13 +40,13 @@ public class Tab2Pager
     @Bind(R.id.swipe)
     SwipeRefreshLayout mSwipe;
     private MovieLoader  mMovieLoader;
+
     private Movieadapter mMovieadapter;
 
     private AdapterWrapper    mAdapterWrapper;
     private SwipeToLoadHelper mLoadMoreHelper;
 
     public static  int page  = 1;
-    private List<ResultsBean> mMovies = new ArrayList<>();
 
     @Nullable
     @Override
@@ -57,16 +56,21 @@ public class Tab2Pager
     {
         View layout = inflater.inflate(R.layout.tab2, null);
         ButterKnife.bind(this, layout);
-        init();
+
         return layout;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        init();
     }
 
     private void init() {
 
         mMovieLoader = new MovieLoader();
         mRecyclerView.addItemDecoration(new MovieDecoration());
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(manager);
 
         getMovieList();
@@ -90,14 +94,13 @@ public class Tab2Pager
     }
 
     public void getMovieList() {
-        mMovieLoader.getGirl("Android", 20,1)
+        mMovieLoader.getNew("Android", 20,1)
                     .subscribe(new Action1<List<ResultsBean>>() {
                         @Override
                         public void call(List<ResultsBean> movies) {
 
                             page = 1 ;
                             mMovieadapter = new Movieadapter(getContext(), movies);
-                            Log.d("请求","zouzheli");
                             mAdapterWrapper = new AdapterWrapper(mMovieadapter);
                             mLoadMoreHelper = new SwipeToLoadHelper(mRecyclerView, mAdapterWrapper);
 
@@ -110,7 +113,7 @@ public class Tab2Pager
                             });
                             mRecyclerView.setAdapter(mAdapterWrapper);
 
-                            Tab2Pager.this.mMovieadapter.notifyDataSetChanged();
+                            mMovieadapter.notifyDataSetChanged();
                             if (mSwipe.isRefreshing()){
                                 mSwipe.setRefreshing(false);
                             }
@@ -136,11 +139,10 @@ public class Tab2Pager
 
 
     private void getLoad() {
-        mMovieLoader.getGirl("Android", 20,1)
+        mMovieLoader.getNew("Android", 20,page)
                     .subscribe(new Action1<List<ResultsBean>>() {
                         @Override
                         public void call(List<ResultsBean> movies) {
-                            Log.d("加载","1231456");
                             mMovieadapter.setMovies(movies);
                             mSwipe.setEnabled(true);
                             mLoadMoreHelper.setLoadMoreFinish();

@@ -1,4 +1,4 @@
-package com.example.wzw.biubiubiu.HttpUtil;
+package com.example.wzw.biubiubiu.httpUtil;
 
 import android.util.Log;
 
@@ -11,14 +11,16 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * 拦截器
- *
- * 向请求头里添加公共参数
- * Created by zhouwei on 16/11/10.
+ * @项目名称 :biubiubiu
+ * @类描述 :
+ * @创建人 : wzw
+ * @创建时间 : 2018/3/20 21:38
+ * @修改人：wzw
+ * @修改时间：2018/3/20 21:38
+ * @修改备注：
  */
 
-public class HttpCommonInterceptor
-        implements Interceptor {
+class HttpCommonInterceptor implements Interceptor {
 
     private Map<String,String> mHeaderParamsMap = new HashMap<>();
     public HttpCommonInterceptor() {
@@ -27,7 +29,7 @@ public class HttpCommonInterceptor
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Log.d("HttpCommonInterceptor", "add common params");
+        Log.d("HttpCommonInterceptor","add common params");
         Request oldRequest = chain.request();
 
         // 添加新的参数，添加到url 中
@@ -39,7 +41,7 @@ public class HttpCommonInterceptor
         // 新的请求
 
         Request.Builder requestBuilder =  oldRequest.newBuilder();
-                requestBuilder.method(oldRequest.method(), oldRequest.body());
+        requestBuilder.method(oldRequest.method(), oldRequest.body());
         //添加公共参数,添加到header中
         if(mHeaderParamsMap.size() > 0){
             for(Map.Entry<String,String> params:mHeaderParamsMap.entrySet()){

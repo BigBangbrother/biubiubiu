@@ -1,4 +1,4 @@
-package com.example.wzw.biubiubiu.recycle;
+package com.example.wzw.biubiubiu.recycletutil;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +13,10 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 public class SwipeToLoadHelper extends RecyclerView.OnScrollListener {
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView               mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private AdapterWrapper mAdapterWrapper;
-    private LoadMoreListener mListener;
+    private AdapterWrapper             mAdapterWrapper;
+    private LoadMoreListener           mListener;
     /** 是否正在加载中 */
     private boolean mLoading = false;
     /** 上拉刷新功能是否开启 */
@@ -27,9 +27,11 @@ public class SwipeToLoadHelper extends RecyclerView.OnScrollListener {
         mAdapterWrapper = adapterWrapper;
 
         if (mLayoutManager instanceof GridLayoutManager) {
+
             mAdapterWrapper.setAdapterType(AdapterWrapper.ADAPTER_TYPE_GRID);
             mAdapterWrapper.setSpanCount(((GridLayoutManager) mLayoutManager).getSpanCount());
         } else if (mLayoutManager instanceof LinearLayoutManager) {
+
             mAdapterWrapper.setAdapterType(AdapterWrapper.ADAPTER_TYPE_LINEAR);
         }
 

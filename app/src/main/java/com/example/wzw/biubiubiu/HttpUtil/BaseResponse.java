@@ -1,4 +1,4 @@
-package com.example.wzw.biubiubiu.HttpUtil;
+package com.example.wzw.biubiubiu.httpUtil;
 
 /**
  *

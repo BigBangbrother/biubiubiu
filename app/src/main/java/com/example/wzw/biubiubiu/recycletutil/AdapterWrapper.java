@@ -1,4 +1,4 @@
-package com.example.wzw.biubiubiu.recycle;
+package com.example.wzw.biubiubiu.recycletutil;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -73,8 +73,10 @@ public class AdapterWrapper
                                                                 R.layout.item_load,
                                                                 null));
             }
+
             return mWrapperHolder;
         } else {
+
             return mAdapter.onCreateViewHolder(parent, viewType);
         }
     }
@@ -132,6 +134,7 @@ public class AdapterWrapper
     }
 
     public void setLoadItemState(boolean isLoading) {
+
         if (isLoading) {
             mWrapperHolder.setLoadText("正在加载...");
             mWrapperHolder.setLoadPbVisibility(true);

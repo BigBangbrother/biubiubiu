@@ -78,7 +78,9 @@ public class Tab1Pager
     public void onClick(View v) {
         int count = Integer.parseInt(mEtCount.getText().toString());
         if (v == mImageButton1) {
-            count--;
+            if (count>0){
+                count--;
+            }
             mEtCount.setText(count + "");
         } else if(v==mImageButton2) {
             count++;
